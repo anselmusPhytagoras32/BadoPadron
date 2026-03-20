@@ -18,7 +18,7 @@ erDiagram
 
     CUSTOMER {
         int id PK
-        int owner_id FK  %%
+        int owner_id FK
         string name
         string phone_number UK
         string address
