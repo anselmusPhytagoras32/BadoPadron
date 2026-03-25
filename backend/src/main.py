@@ -18,7 +18,7 @@ app = FastAPI(title="SukatAPI")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"], # Replace "*" later with the frontend URL
+    allow_origins=["https://localhost:5173"], # Replace later for prod
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

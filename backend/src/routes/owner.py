@@ -36,8 +36,11 @@ class OwnerLogin(BaseModel):
                 }
             )
 async def register_owner(owner_data: OwnerCreate, db: Annotated[Session, Depends(get_db)]):
-    existing_owner = db.query(Owner).filter(Owner.username == owner_data.username).first()
-    if existing_owner:
+    if (
+        existing_owner := db.query(Owner)
+        .filter(existing_owner.username == owner_data.username)
+        .first()
+    ):
         raise HTTPException(status_code=400, detail="Username already taken")
 
     hashed_pwd = hash_password(owner_data.password)
@@ -47,11 +50,11 @@ async def register_owner(owner_data: OwnerCreate, db: Annotated[Session, Depends
         username=owner_data.username,
         password=hashed_pwd
     )
-    
+
     db.add(new_owner)
     db.commit()
     db.refresh(new_owner)
-    
+
     return new_owner
 
 
